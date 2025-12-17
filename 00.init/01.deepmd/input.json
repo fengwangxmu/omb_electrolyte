@@ -1,0 +1,113 @@
+{
+    "model": {
+        "descriptor": {
+            "type": "se_atten_v2",
+            "sel": "auto",
+            "rcut_smth": 0.5,
+            "rcut": 6.0,
+            "neuron": [
+                25,
+                50,
+                100
+            ],
+            "resnet_dt": false,
+            "axis_neuron": 32,
+            "attn_layer": 0,
+            "attn_mask": false,
+            "attn_dotr": true,
+            "type_one_side": false,
+            "precision": "default",
+            "trainable": true,
+            "set_davg_zero": true,
+            "attn": 128,
+            "seed": @SEED,
+            "activation_function": "tanh",
+            "exclude_types": []
+        },
+        "fitting_net": {
+            "neuron": [
+                240,
+                240,
+                240
+            ],
+            "resnet_dt": true,
+            "seed": @SEED,
+            "type": "ener",
+            "numb_fparam": 0,
+            "numb_aparam": 0,
+            "activation_function": "tanh",
+            "precision": "default",
+            "trainable": true,
+            "rcond": null,
+            "atom_ener": [],
+            "use_aparam_as_mask": false
+        },
+        "type_map": [
+            "B",
+"C",
+"F",
+"H",
+"N",
+"Na",
+"O",
+"P",
+"S"
+
+        ],
+        "data_stat_nbatch": 10,
+        "data_stat_protect": 0.01,
+        "data_bias_nsample": 10,
+        "srtab_add_bias": true,
+        "type": "standard"
+    },
+    "learning_rate": {
+        "type": "exp",
+        "start_lr": 0.001,
+        "decay_steps": 10000,
+        "scale_by_worker": "linear",
+        "stop_lr": 1e-08
+    },
+    "loss": {
+        "start_pref_e": 0.02,
+        "limit_pref_e": 1,
+        "start_pref_f": 1000,
+        "limit_pref_f": 1,
+        "start_pref_v": 0.02,
+        "limit_pref_v": 1,
+        "type": "ener",
+        "start_pref_ae": 0.0,
+        "limit_pref_ae": 0.0,
+        "start_pref_pf": 0.0,
+        "limit_pref_pf": 0.0,
+        "enable_atom_ener_coeff": false,
+        "start_pref_gf": 0.0,
+        "limit_pref_gf": 0.0,
+        "numb_generalized_coord": 0
+    },
+    "training": {
+        "numb_steps": 400000,
+        "seed": @SEED,
+        "disp_file": "lcurve.out",
+        "disp_freq": 100,
+        "save_freq": 1000,
+        "save_ckpt": "model.ckpt",
+        "disp_training": true,
+        "time_training": true,
+        "profiling": false,
+        "profiling_file": "timeline.json",
+        "training_data": {
+            "set_prefix": "set",
+            "batch_size": 1,
+            "sys_probs": null,
+            "systems": [
+                @DP_DATASET
+            ],
+            "auto_prob": "prob_sys_size"
+        },
+        "validation_data": null,
+        "enable_profiler": false,
+        "tensorboard": false,
+        "tensorboard_log_dir": "log",
+        "tensorboard_freq": 1
+    }
+}

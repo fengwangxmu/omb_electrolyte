@@ -1,0 +1,62 @@
+variable        DATA_FILE       string @DATA_FILE
+variable        NSTEPS          equal  @STEPS
+variable        THERMO_FREQ     equal  @FREQ
+variable        DUMP_FREQ       equal  @FREQ
+variable        TEMP            equal  @TEMP
+variable        PRES            equal  1.000000
+variable        TAU_T           equal  0.050000
+variable        TAU_P           equal  0.500000
+
+units           metal
+boundary        p p p
+atom_style      atomic
+atom_modify map yes
+neighbor        1.0 bin
+
+box          tilt large
+if "${restart} > 0" then "read_restart ai2-kit.restart.*" else "read_data ${DATA_FILE}"
+change_box   all triclinic
+mass 1  10.81
+mass 2  12.011
+mass 3  18.998
+mass 4  3.016
+mass 5  14.007
+mass 6  22.990
+mass 7  15.999
+mass 8  30.974
+mass 9  32.065
+
+pair_style deepmd @DP_MODELS out_freq ${THERMO_FREQ} out_file model_devi.out
+
+
+pair_coeff *  * B C F H N Na O P S
+
+compute PE all pe
+compute KE all ke
+
+# --------------------- PRINT SECTION ----------------------
+variable PE  equal c_PE
+variable KE  equal c_KE
+variable time equal step*dt
+variable temp equal temp
+
+variable float1 format time %10.4f
+variable float2 format temp %12.6f
+variable float3 format PE   %12.6f
+variable float4 format KE   %12.6f
+
+fix 3 all print ${THERMO_FREQ} "${float1}   ${float2}   ${float3}   ${float4} " file fep_mix.ener screen "no" title "#time T PE KE ini fin GAP"
+
+thermo_style    custom step temp pe ke etotal press vol lx ly lz xy xz yz
+thermo          ${THERMO_FREQ}
+dump        TRAJ all custom ${DUMP_FREQ} mlmd.lammpstrj id type element xu yu zu
+dump_modify TRAJ sort id element  B C F H N Na O P S
+restart         10000 ai2-kit.restart
+
+if "${restart} == 0" then "velocity        all create ${TEMP} 402834"
+fix             1 all nvt temp ${TEMP} ${TEMP} ${TAU_T}
+
+timestep        0.000500
+run             ${NSTEPS} upto
+
+#FEP sampling Done !!! 

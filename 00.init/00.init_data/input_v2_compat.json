@@ -1,0 +1,167 @@
+{
+    "model": {
+        "descriptor": {
+            "type": "se_atten_v2",
+            "sel": 120,
+            "rcut_smth": 0.5,
+            "rcut": 6.0,
+            "neuron": [
+                25,
+                50,
+                100
+            ],
+            "resnet_dt": false,
+            "axis_neuron": 16,
+            "attn_layer": 0,
+            "attn_mask": false,
+            "attn_dotr": true,
+            "type_one_side": false,
+            "precision": "default",
+            "trainable": true,
+            "set_davg_zero": true,
+            "attn": 128,
+            "seed": 3641393628,
+            "activation_function": "tanh",
+            "exclude_types": [],
+            "env_protection": 0.0,
+            "trainable_ln": true,
+            "ln_eps": null,
+            "tebd_dim": 8,
+            "use_econf_tebd": false,
+            "use_tebd_bias": false,
+            "scaling_factor": 1.0,
+            "normalize": true,
+            "concat_output_tebd": true
+        },
+        "type_embedding": {
+            "neuron": [
+                8
+            ],
+            "resnet_dt": false,
+            "seed": 1,
+            "activation_function": "tanh",
+            "precision": "default",
+            "trainable": true,
+            "use_econf_tebd": false,
+            "use_tebd_bias": false
+        },
+        "fitting_net": {
+            "neuron": [
+                240,
+                240,
+                240
+            ],
+            "resnet_dt": true,
+            "seed": 640099670,
+            "type": "ener",
+            "numb_fparam": 0,
+            "numb_aparam": 0,
+            "activation_function": "tanh",
+            "precision": "default",
+            "trainable": true,
+            "rcond": null,
+            "atom_ener": [],
+            "use_aparam_as_mask": false,
+            "dim_case_embd": 0
+        },
+        "type_map": [
+            "B",
+            "C",
+            "F",
+            "H",
+            "N",
+            "Na",
+            "O",
+            "P",
+            "S"
+        ],
+        "data_stat_nbatch": 10,
+        "data_stat_protect": 0.01,
+        "data_bias_nsample": 10,
+        "srtab_add_bias": true,
+        "type": "standard",
+        "compress": {
+            "model_file": "graph.000.pb",
+            "min_nbor_dist": 0.9294037745242908,
+            "table_config": [
+                5,
+                0.01,
+                0.1,
+                -1
+            ],
+            "type": "se_e2_a"
+        },
+        "pair_exclude_types": [],
+        "atom_exclude_types": [],
+        "preset_out_bias": null
+    },
+    "learning_rate": {
+        "type": "exp",
+        "start_lr": 0.001,
+        "decay_steps": 1000,
+        "scale_by_worker": "linear",
+        "stop_lr": 1e-08,
+        "decay_rate": null
+    },
+    "loss": {
+        "start_pref_e": 0.02,
+        "limit_pref_e": 1,
+        "start_pref_f": 1000,
+        "limit_pref_f": 1,
+        "start_pref_v": 0,
+        "limit_pref_v": 1,
+        "type": "ener",
+        "start_pref_ae": 0.0,
+        "limit_pref_ae": 0.0,
+        "start_pref_pf": 0.0,
+        "limit_pref_pf": 0.0,
+        "enable_atom_ener_coeff": false,
+        "start_pref_gf": 0.0,
+        "limit_pref_gf": 0.0,
+        "numb_generalized_coord": 0,
+        "start_pref_h": 0.0,
+        "limit_pref_h": 0.0,
+        "use_huber": false,
+        "huber_delta": 0.01
+    },
+    "training": {
+        "numb_steps": 200000,
+        "seed": 1147628669,
+        "disp_file": "lcurve.out",
+        "disp_freq": 100,
+        "save_freq": 1000,
+        "save_ckpt": "model-compression/model.ckpt",
+        "disp_training": true,
+        "time_training": true,
+        "profiling": false,
+        "profiling_file": "timeline.json",
+        "training_data": {
+            "batch_size": 1,
+            "sys_probs": null,
+            "systems": [
+                "/public/home/fengw/magic/ai2-kit/workdir/train1/iters-000/train-deepmd/new_dataset/B0C261F42H370N0Na7O228P7S0",
+                "/public/home/fengw/magic/ai2-kit/workdir/train1/iters-000/train-deepmd/new_dataset/B1C255F44H354N2Na8O223P7S2",
+                "/public/home/fengw/magic/ai2-kit/workdir/train1/iters-001/train-deepmd/new_dataset/B0C261F42H370N0Na7O228P7S0",
+                "/public/home/fengw/magic/ai2-kit/workdir/train1/iters-001/train-deepmd/new_dataset/B1C255F44H354N2Na8O223P7S2",
+                "/public/home/fengw/magic/ai2-kit/workdir/train1/iters-002/train-deepmd/new_dataset/B0C261F42H370N0Na7O228P7S0",
+                "/public/home/fengw/magic/ai2-kit/workdir/train1/iters-002/train-deepmd/new_dataset/B1C255F44H354N2Na8O223P7S2",
+                "/public/home/fengw/magic/ai2-kit/workdir/train1/iters-003/train-deepmd/new_dataset/B0C261F42H370N0Na7O228P7S0",
+                "/public/home/fengw/magic/ai2-kit/workdir/train1/iters-003/train-deepmd/new_dataset/B1C255F44H354N2Na8O223P7S2",
+                "/public/home/fengw/magic/ai2-kit/workdir/train1/iters-004/train-deepmd/new_dataset/B0C261F42H370N0Na7O228P7S0",
+                "/public/home/fengw/magic/ai2-kit/workdir/train1/iters-004/train-deepmd/new_dataset/B1C255F44H354N2Na8O223P7S2",
+                "/public/home/fengw/magic/ai2-kit/workdir/train1/iters-005/train-deepmd/new_dataset/B0C261F42H370N0Na7O228P7S0",
+                "/public/home/fengw/magic/ai2-kit/workdir/train1/iters-005/train-deepmd/new_dataset/B1C255F44H354N2Na8O223P7S2"
+            ],
+            "auto_prob": "prob_sys_size",
+            "rglob_patterns": null
+        },
+        "validation_data": null,
+        "enable_profiler": false,
+        "tensorboard": false,
+        "tensorboard_log_dir": "log",
+        "tensorboard_freq": 1,
+        "max_ckpt_keep": 5,
+        "change_bias_after_training": false,
+        "opt_type": "Adam"
+    }
+}
